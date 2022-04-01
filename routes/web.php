@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+/** @var \Illuminate\Routing\Router $router */
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+$router->get( '/', [ 'uses' => 'ShopController@index', 'as' => 'home' ] );
+
+$router->resource('ingredients', 'IngredientsController');
+
