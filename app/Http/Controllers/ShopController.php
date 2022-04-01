@@ -87,6 +87,7 @@ class ShopController extends Controller
 
         $sum = 0;
 
+        //check if the diet-cookie has exactly 500 calories
         if($diet){
             for($j = 0; $j < count($recipe); $j++){
                 $sum+= $ingredients[$j]['calories'] * $recipe[$j];
@@ -98,68 +99,23 @@ class ShopController extends Controller
             }
         }
 
+        $attributes = array_keys($ingredients->first()->only('capacity', 'durability', 'texture', 'flavor'));
+        //calculate the scores, returning zero if one of the sums is non-positive
+        for($i = 0 ; $i < count($attributes); $i++){
+            for($j = 0; $j < count($recipe); $j++){
+                $sum+= $ingredients[$j][$attributes[$i]] * $recipe[$j];
+    
+            }
 
-        for($j = 0; $j < count($recipe); $j++){
+            if($sum > 0){
+                $result *= $sum;
+            }else{
+                return  0;
+            }
 
-            $sum+= $ingredients[$j]['capacity'] * $recipe[$j];
-
-        }
-
-
-        if($sum > 0){
-            $result *= $sum;
-        }else{
-            return  0;
-        }
-
-        $sum = 0;
-
-
-        for($j = 0; $j < count($recipe); $j++){
-
-            $sum+= $ingredients[$j]['durability'] * $recipe[$j];
+            $sum = 0;
 
         }
-
-        if($sum > 0){
-            $result *= $sum;
-        }else{
-            return  0;
-        }
-
-        $sum = 0;
-
-
-        for($j = 0; $j < count($recipe); $j++){
-
-            $sum+= $ingredients[$j]['texture'] * $recipe[$j];
-
-        }
-
-        if($sum > 0){
-            $result *= $sum;
-        }else{
-            return  0;
-        }
-
-        $sum = 0;
-
-
-        for($j = 0; $j < count($recipe); $j++){
-
-            $sum+= $ingredients[$j]['flavor'] * $recipe[$j];
-
-        }
-
-        if($sum > 0){
-            $result *= $sum;
-        }else{
-            return  0;
-        }
-
-        $sum = 0;
-
-        
 
         return $result;
         
