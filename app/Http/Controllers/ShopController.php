@@ -87,6 +87,17 @@ class ShopController extends Controller
 
         $sum = 0;
 
+        if($diet){
+            for($j = 0; $j < count($recipe); $j++){
+                $sum+= $ingredients[$j]['calories'] * $recipe[$j];
+    
+            }
+            
+            if($sum != 500){
+                return  0;
+            }
+        }
+
 
         for($j = 0; $j < count($recipe); $j++){
 
@@ -148,16 +159,7 @@ class ShopController extends Controller
 
         $sum = 0;
 
-        if($diet){
-            for($j = 0; $j < count($recipe); $j++){
-                $sum+= $ingredients[$j]['calories'] * $recipe[$j];
-    
-            }
-            
-            if($sum != 500){
-                return  0;
-            }
-        }
+        
 
         return $result;
         
