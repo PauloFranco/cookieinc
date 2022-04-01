@@ -3,11 +3,7 @@
 @section('title', make_title('Cookie Inc'))
 
 @section('header')
-    @include('shop.partials.header', [
-        'game' => null,
-        'title'  => 'Recipe',
-        'except' => [ 'view' ],
-    ])
+   
 @endsection
 
 @section('content')
